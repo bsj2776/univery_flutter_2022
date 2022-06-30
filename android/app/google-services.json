@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "712199168959",
+    "project_id": "flutter-univery-2022",
+    "storage_bucket": "flutter-univery-2022.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:712199168959:android:69cbd2f1e53c969a10f70a",
+        "android_client_info": {
+          "package_name": "com.example.univery_flutter_2022"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "712199168959-cle09qgkrp3t9cajq1geh278johs3l3t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCY4D95p-VuiBoqdv4uN5UjNf3lKoQml5k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "712199168959-cle09qgkrp3t9cajq1geh278johs3l3t.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "712199168959-gj0hmrgps9l3dfn85dt5cng82khkraja.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.univeryProject2022"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
