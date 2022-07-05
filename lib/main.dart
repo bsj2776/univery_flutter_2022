@@ -43,31 +43,21 @@ class _Login_Page extends State<Login_Page>{
   String email = "";
   String url = "";
 
-  Future<String> googleSingIn() async {
-    final GoogleSignInAccount? account = await googleSignIn.signIn();
-    final GoogleSignInAuthentication? googleAuth = await account?.authentication;
+  Future<UserCredential> googleSingIn() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+    // Create a new credential
     final credential = GoogleAuthProvider.credential(
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
     );
 
-    final UserCredential authResult = await _auth.signInWithCredential(credential);
-    final User? user = authResult.user;
-
-    assert(user!.isAnonymous);
-    assert(await user?.getIdToken() != null);
-
-    currentUser = await _auth.currentUser!;
-    assert(user?.uid == currentUser.uid);
-
-    setState(() {
-      email = user!.email!;
-      url = user.photoURL!;
-      name = user.displayName!;
-    });
-
-    return '구글 로그인 성공: $user';
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
   void googleSignOut() async {
@@ -110,7 +100,7 @@ class _Login_Page extends State<Login_Page>{
                   googleSignOut();
                 }
               },
-              child: Container(
+              child: SizedBox(
                   width: 150,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
