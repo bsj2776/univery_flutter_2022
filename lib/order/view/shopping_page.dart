@@ -9,13 +9,15 @@ class ShoppingPage extends StatelessWidget{
       backgroundColor: Colors.red,
       body: Column(
         children: [
-          ListView.builder(
-              itemCount: 5,
-              itemBuilder: (context, index){
-                
-              }
-        ],
-
+          widget(
+            child: ListView.builder(
+                itemCount: 5,
+                itemBuilder: (context, index){
+                  return Card();
+                },
+      ),
+          ),
+      ],
       ),
     );
   }
