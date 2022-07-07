@@ -4,7 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -23,106 +23,158 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Login_Page(title: 'Login_Page'),
+      home: MyhomePage(),
+      routes: {
+        //'login': (context) => login(),
+        //'/Sign_up': (context) => Sign_up()
+      },
     );
   }
 }
-class Login_Page extends StatefulWidget {
-  Login_Page({Key? key, required this.title}) : super(key: key);
-  final String title;
+
+class MyhomePage extends StatefulWidget{
+  const MyhomePage({Key? key}) : super(key: key);
 
   @override
-  _Login_Page createState() => _Login_Page();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _Login_Page extends State<Login_Page>{
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final GoogleSignIn googleSignIn = GoogleSignIn();
-  late User currentUser;
-  String name = "";
-  String email = "";
-  String url = "";
 
-  Future<String> googleSingIn() async {
-    final GoogleSignInAccount? account = await googleSignIn.signIn();
-    final GoogleSignInAuthentication? googleAuth = await account?.authentication;
-
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
-
-    final UserCredential authResult = await _auth.signInWithCredential(credential);
-    final User? user = authResult.user;
-
-    assert(user!.isAnonymous);
-    assert(await user?.getIdToken() != null);
-
-    currentUser = await _auth.currentUser!;
-    assert(user?.uid == currentUser.uid);
-
-    setState(() {
-      email = user!.email!;
-      url = user.photoURL!;
-      name = user.displayName!;
-    });
-
-    return '구글 로그인 성공: $user';
-  }
-
-  void googleSignOut() async {
-    await _auth.signOut();
-    await googleSignIn.signOut();
-
-    setState(() {
-      email = "";
-      url = "";
-      name = "";
-    });
-
-    print("User Sign Out");
-  }
-
+class _MyHomePageState extends State {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            email == ""
-                ? Container()
-                : Column(
-              children: <Widget>[
-                Image.network(url),
-                Text(name),
-                Text(email),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(70.0),
+        child: AppBar(
+          title: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: const [
+              Center(
+                child: Text(
+                  'C-STYLE',
+                  style: TextStyle(
+                      height: 1.5,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 35,
+                      fontFamily: 'Nanum Barumpen',
+                      //나눔 글꼴
+                      fontStyle: FontStyle.normal),
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: const Icon(
+                    Icons.camera_alt,
+                    color: Colors.white,
+                    size: 40,
+                  ),
+                  onPressed: () {},
+                ),
               ],
+            )
+          ],
+        ),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            //로그인 회원가입 창
+            DrawerHeader(
+              decoration: const BoxDecoration(
+                color: Colors.black,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  FlatButton(
+                    child: const Text(
+                      '로그인',
+                      style: TextStyle(
+                        height: 1.5,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 35,
+                        fontFamily: 'Nanum Myeongjo',
+                        fontStyle: FontStyle.normal,
+                        color: Colors.white,
+                      ),
+                    ),
+                    onPressed: () async {
+                      final result =
+                          await Navigator.pushNamed(context, '/login');
+                    },
+                  ),
+                  //로그인과 회원가입 사이의 여백
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  FlatButton(
+                    child: const Text(
+                      '회원 가입',
+                      style: TextStyle(
+                        height: 1.5,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 35,
+                        fontFamily: 'Nanum Myeongjo',
+                        fontStyle: FontStyle.normal,
+                        color: Colors.white,
+                      ),
+                    ),
+                    onPressed: () async {
+                      final result =
+                          await Navigator.pushNamed(context, '/Sign_up');
+                    },
+                  ),
+                ],
+              ),
             ),
-            RaisedButton(
-              onPressed: () {
-                if (email == "") {
-                  googleSingIn();
-                } else {
-                  googleSignOut();
-                }
+            ListTile(
+                title: Text('중고 옷 올리기'),
+                onTap: () {
+                  Navigator.pop(context);
+                }),
+            ListTile(
+              title: Text('TOP'),
+              onTap: () {
+                Navigator.pop(context);
               },
-              child: Container(
-                  width: 150,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      const Icon(Icons.subdirectory_arrow_right),
-                      Text(email == "" ? 'Google Login' : "Google Logout")
-                    ],
-                  )),
+            ),
+            ListTile(
+              title: Text('OUTER'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text('PAINTS'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text('SHOES'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text('ACCESSORY'),
+              onTap: () {
+                Navigator.pop(context);
+              },
             ),
           ],
         ),
       ),
+      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
