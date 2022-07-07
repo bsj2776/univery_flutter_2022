@@ -238,11 +238,6 @@ class _MyHomePageState extends State<MyhomePage> {
             ),
             onPressed: () async {
               _signIn();
-              var check = app.userEmail.toString().split("@");
-              if(check[1] != 'handong.ac.kr') {
-                showSnackBar(context);
-                _sign_Out();
-              }
             },
           ),
         ],
@@ -276,6 +271,11 @@ class _MyHomePageState extends State<MyhomePage> {
       print(user);
     });
 
+    var check = app.userEmail!.split("@");
+    if(check[1] != 'handong.ac.kr') {
+      showSnackBar(context);
+      _sign_Out();
+    }
     return 'successor';
   }
 
@@ -287,10 +287,10 @@ class _MyHomePageState extends State<MyhomePage> {
   }
 }
 
-  void showSnackBar(BuildContext context) {
-    Scaffold.of(context).showSnackBar(const SnackBar(
-      content: Text('한동 이메일로만 가입 가능 합니다.', textAlign: TextAlign.center),
-      duration: Duration(seconds: 2),
-      backgroundColor: Colors.blue,
-    ));
-  }
+void showSnackBar(BuildContext context) {
+  Scaffold.of(context).showSnackBar(const SnackBar(
+    content: Text('한동 이메일로만 가입 가능 합니다.', textAlign: TextAlign.center),
+    duration: Duration(seconds: 2),
+    backgroundColor: Colors.blue,
+  ));
+}
