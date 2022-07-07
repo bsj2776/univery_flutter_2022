@@ -83,7 +83,7 @@ class _MyHomePageState extends State<MyhomePage> {
   Widget main(){
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(70.0),
+        preferredSize: const Size.fromHeight(70.0),
         child: AppBar(
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
@@ -136,30 +136,30 @@ class _MyHomePageState extends State<MyhomePage> {
             if(app.user == null) Login_SignUp()
             else Login_done(),
             ListTile(
-                title: Text('프로필'),
+                title: const Text('프로필'),
                 onTap: () {
                   Navigator.pop(context);
                 }),
             ListTile(
-              title: Text('배달 내역 확인'),
+              title: const Text('배달 내역 확인'),
               onTap: () {
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              title: Text('주문 내역 확인'),
+              title: const Text('주문 내역 확인'),
               onTap: () {
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              title: Text('수락한 배달 목록'),
+              title: const Text('수락한 배달 목록'),
               onTap: () {
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              title: Text('배달원 등록'),
+              title: const Text('배달원 등록'),
               onTap: () {
                 Navigator.pop(context);
               },
@@ -177,9 +177,9 @@ class _MyHomePageState extends State<MyhomePage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           FlatButton(
-            child: Text(
+            child: const Text(
               '내 정보',
-              style: TextStyle(
+              style: const TextStyle(
                 height: 0.5,
                 fontWeight: FontWeight.bold,
                 fontSize: 30,
@@ -192,11 +192,11 @@ class _MyHomePageState extends State<MyhomePage> {
               final result = await Navigator.pushNamed(context, '/My_information');
             },
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           FlatButton(
-              child: Text(
+              child: const Text(
                 '로그아웃',
                 style: TextStyle(
                   height: 0.5,
@@ -213,7 +213,7 @@ class _MyHomePageState extends State<MyhomePage> {
           ),
         ],
       ),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.black,
       ),
     );
@@ -225,7 +225,7 @@ class _MyHomePageState extends State<MyhomePage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           FlatButton(
-            child: Text(
+            child: const Text(
               '구글 아이디로 로그인',
               style: TextStyle(
                 height: 1.5,
@@ -240,7 +240,6 @@ class _MyHomePageState extends State<MyhomePage> {
               _signIn();
               var check = app.userEmail.toString().split("@");
               if(check[1] != 'handong.ac.kr') {
-                print('${check[1]}');
                 showSnackBar(context);
                 _sign_Out();
               }
@@ -248,7 +247,7 @@ class _MyHomePageState extends State<MyhomePage> {
           ),
         ],
       ),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.black,
       ),
     );
@@ -289,27 +288,9 @@ class _MyHomePageState extends State<MyhomePage> {
 }
 
   void showSnackBar(BuildContext context) {
-    Scaffold.of(context).showSnackBar(SnackBar(
+    Scaffold.of(context).showSnackBar(const SnackBar(
       content: Text('한동 이메일로만 가입 가능 합니다.', textAlign: TextAlign.center),
       duration: Duration(seconds: 2),
       backgroundColor: Colors.blue,
     ));
   }
-
-/*
-onPressed: () {
-  var check = userId.text.toString().split("@");
-  var checkNum = check[0].split('');
-  if(check[1] != 'handong.edu'){
-  print('${check[1]}');
-  showSnackBar4(context);
-
-  void showSnackBar4(BuildContext context) {
-  Scaffold.of(context).showSnackBar(SnackBar(
-    content: Text('한동 이메일로만 가입 가능 합니다.', textAlign: TextAlign.center),
-    duration: Duration(seconds: 2),
-    backgroundColor: Colors.blue,
-  ));
-}
-}
-*/
