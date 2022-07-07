@@ -50,14 +50,15 @@ class MyhomePage extends StatefulWidget {
 class AppState{
   bool loading;
   User? user;
-  AppState(this.loading, this.user);
+  String? userEmail;
+  AppState(this.loading, this.user, this.userEmail);
 }
 
 class _MyHomePageState extends State<MyhomePage> {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
-  final app = AppState(false, null);
+  final app = AppState(false, null, null);
 
   @override
   Widget build(BuildContext context) {
@@ -237,6 +238,12 @@ class _MyHomePageState extends State<MyhomePage> {
             ),
             onPressed: () async {
               _signIn();
+              var check = app.userEmail.toString().split("@");
+              if(check[1] != 'handong.ac.kr') {
+                print('${check[1]}');
+                showSnackBar(context);
+                _sign_Out();
+              }
             },
           ),
         ],
@@ -266,6 +273,7 @@ class _MyHomePageState extends State<MyhomePage> {
     setState(() {
       app.loading = false;
       app.user = user;
+      app.userEmail = user?.email;
       print(user);
     });
 
@@ -278,5 +286,30 @@ class _MyHomePageState extends State<MyhomePage> {
       return app.user = null;
     });
   }
-
 }
+
+  void showSnackBar(BuildContext context) {
+    Scaffold.of(context).showSnackBar(SnackBar(
+      content: Text('한동 이메일로만 가입 가능 합니다.', textAlign: TextAlign.center),
+      duration: Duration(seconds: 2),
+      backgroundColor: Colors.blue,
+    ));
+  }
+
+/*
+onPressed: () {
+  var check = userId.text.toString().split("@");
+  var checkNum = check[0].split('');
+  if(check[1] != 'handong.edu'){
+  print('${check[1]}');
+  showSnackBar4(context);
+
+  void showSnackBar4(BuildContext context) {
+  Scaffold.of(context).showSnackBar(SnackBar(
+    content: Text('한동 이메일로만 가입 가능 합니다.', textAlign: TextAlign.center),
+    duration: Duration(seconds: 2),
+    backgroundColor: Colors.blue,
+  ));
+}
+}
+*/
