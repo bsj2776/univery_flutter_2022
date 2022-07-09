@@ -9,15 +9,53 @@ class ShoppingPage extends StatelessWidget{
       backgroundColor: Colors.red,
       body: Column(
         children: [
-          widget(
+          Expanded(
             child: ListView.builder(
                 itemCount: 5,
                 itemBuilder: (context, index){
-                  return Card();
+                  return Card(
+                    margin: EdgeInsets.all(12),
+                    child: Padding(
+                      padding: EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Product name',//card안 왼쪽 위 글자(칼럼 안)
+                                  style: TextStyle(fontSize: 24),
+                                  ),
+                                  Text('Product description'),//product밑 글자(칼럼 안)
+                                ],
+                              ),
+                              Text('\$30',//card 오른쪽 위(row안)
+                                style: TextStyle(fontSize: 24),
+                              ),
+                            ],
+                          ),
+                          ElevatedButton(
+                              onPressed: (){},
+                              child: Text('Add to cart'),//card안 오른쪽 아래 버튼
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
                 },
-      ),
+              ),
           ),
-      ],
+          SizedBox(
+            height: 30,
+          ),
+          Text('Total amount', style: TextStyle(//화면 맨 아래 가운데 글자
+            fontSize: 25,
+            color: Colors.white
+          ),)
+        ],
       ),
     );
   }
