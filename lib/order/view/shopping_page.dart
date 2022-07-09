@@ -51,7 +51,7 @@ class ShoppingPage extends StatelessWidget{
           SizedBox(
             height: 30,
           ),
-          Text('Total amount', style: TextStyle(//화면 맨 아래 가운데 글자
+          Text('Show Total amount', style: TextStyle(//화면 맨 아래 가운데 글자
             fontSize: 25,
             color: Colors.white
           ),)
