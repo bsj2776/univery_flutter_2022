@@ -81,6 +81,11 @@ class _MyHomePageState extends State<MyhomePage> {
   }
 
   Widget main(){
+    final String? email = _auth.currentUser?.email;
+    var check = email.toString().split("@");
+    if(check[1] != "handong.ac.kr") {
+      _sign_Out();
+    }
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(70.0),
@@ -134,6 +139,8 @@ class _MyHomePageState extends State<MyhomePage> {
           children: <Widget>[
             //로그인 회원가입 창
             if(app.user == null) Login_SignUp()
+            else if(check[1] != "handong.ac.kr")
+              Login_SignUp()
             else Login_done(),
             ListTile(
                 title: const Text('프로필'),
@@ -271,11 +278,6 @@ class _MyHomePageState extends State<MyhomePage> {
       print(user);
     });
 
-    var check = app.userEmail!.split("@");
-    if(check[1] != 'handong.ac.kr') {
-      showSnackBar(context);
-      _sign_Out();
-    }
     return 'successor';
   }
 
@@ -285,12 +287,4 @@ class _MyHomePageState extends State<MyhomePage> {
       return app.user = null;
     });
   }
-}
-
-void showSnackBar(BuildContext context) {
-  Scaffold.of(context).showSnackBar(const SnackBar(
-    content: Text('한동 이메일로만 가입 가능 합니다.', textAlign: TextAlign.center),
-    duration: Duration(seconds: 2),
-    backgroundColor: Colors.blue,
-  ));
 }
