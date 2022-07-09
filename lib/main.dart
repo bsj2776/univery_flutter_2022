@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'Profile.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
       ),
       home: const MyhomePage(),
       routes: {
-        //'/Profile': (context) => Profile(),
+        '/Profile': (context) => Profile(),
       },
     );
   }
@@ -195,9 +196,12 @@ class _MyHomePageState extends State<MyhomePage> {
                 color: Colors.white,
               ),
             ),
-            onPressed: () async {
-              final result = await Navigator.pushNamed(context, '/My_information');
-            },
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Profile()),
+                );
+              }
           ),
           const SizedBox(
             height: 10,
