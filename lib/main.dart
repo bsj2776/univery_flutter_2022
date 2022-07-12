@@ -130,7 +130,7 @@ class _MyHomePageState extends State<MyhomePage> {
       ),
 
       body: const Center(
-        child: Text('가장 최근에 올린 옷부터 정렬'),
+        child: Text('가장 최근에 올린 옷부터 정렬'),//Hi
       ),
 
       //슬라이드 메뉴
