@@ -282,6 +282,13 @@ class _MyHomePageState extends State<MyhomePage> {
       print(user);
     });
 
+    final String? email = _auth.currentUser?.email;
+    var check = email.toString().split("@");
+    if(check[1] != "handong.ac.kr") {
+      showSnackBar(context);
+    }
+
+
     return 'successor';
   }
 
@@ -290,5 +297,13 @@ class _MyHomePageState extends State<MyhomePage> {
     setState(() {
       return app.user = null;
     });
+  }
+
+  void showSnackBar(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text('한동대학교 메일로만 로그인할 수 있습니다.', textAlign: TextAlign.center),
+      duration: Duration(seconds: 2),
+      backgroundColor: Colors.blue,
+    ));
   }
 }
