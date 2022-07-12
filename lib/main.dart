@@ -84,7 +84,7 @@ class _MyHomePageState extends State<MyhomePage> {
   Widget main(){
     final String? email = _auth.currentUser?.email;
     var check = email.toString().split("@");
-    if(check[0] != "handong.ac.kr") {
+    if(check[1] != "handong.ac.kr") {
       _sign_Out();
     }
     return Scaffold(
