@@ -38,6 +38,8 @@ dependencies:
   firebase_auth: ^3.4.0
   google_sign_in: ^5.3.3
   get:
+  # flutter_html: ^2.2.1
+  # webview_flutter: ^2.8.0
 
 dev_dependencies:
   flutter_test:
