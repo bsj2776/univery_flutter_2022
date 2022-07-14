@@ -4,6 +4,7 @@ import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'Profile.dart';
+import 'Phone.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
       home: const MyhomePage(),
       routes: {
         '/Profile': (context) => Profile(),
+        '/Phone': (context) => Phone(),
       },
     );
   }
@@ -129,8 +131,8 @@ class _MyHomePageState extends State<MyhomePage> {
         ),
       ),
 
-      body: const Center(
-        child: Text('가장 최근에 올린 옷부터 정렬'),//Hi
+      body: Center(
+          child: Text('배달리스트로 이동'),
       ),
 
       //슬라이드 메뉴
@@ -172,6 +174,13 @@ class _MyHomePageState extends State<MyhomePage> {
                 Navigator.pop(context);
               },
             ),
+            ListTile(
+                title: const Text('휴대폰인증'),
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Phone())
+                  );
+                }),
           ],
         ),
       ),
@@ -282,6 +291,13 @@ class _MyHomePageState extends State<MyhomePage> {
       print(user);
     });
 
+    final String? email = _auth.currentUser?.email;
+    var check = email.toString().split("@");
+    if(check[1] != "handong.ac.kr") {
+      showSnackBar(context);
+    }
+
+
     return 'successor';
   }
 
@@ -291,4 +307,21 @@ class _MyHomePageState extends State<MyhomePage> {
       return app.user = null;
     });
   }
+
+  void showSnackBar(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text('한동대학교 메일로만 로그인할 수 있습니다.', textAlign: TextAlign.center),
+      duration: Duration(seconds: 2),
+      backgroundColor: Colors.blue,
+    ));
+  }
+
+  void showSnackBar2(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text('서비스이용을 위해 전화번호 인증이 필요합니다.', textAlign: TextAlign.center),
+      duration: Duration(seconds: 2),
+      backgroundColor: Colors.blue,
+    ));
+  }
+  
 }
