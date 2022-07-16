@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:univery_flutter_2022/delivery.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
       home: const MyhomePage(),
       routes: {
         '/Profile': (context) => Profile(),
+        '/Delivery': (context) => delivery(),
       },
     );
   }
@@ -84,9 +86,6 @@ class _MyHomePageState extends State<MyhomePage> {
   Widget main(){
     final String? email = _auth.currentUser?.email;
     var check = email.toString().split("@");
-    if(check[1] != "handong.ac.kr") {
-      _sign_Out();
-    }
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(70.0),
@@ -144,11 +143,6 @@ class _MyHomePageState extends State<MyhomePage> {
               Login_SignUp()
             else Login_done(),
             ListTile(
-                title: const Text('프로필'),
-                onTap: () {
-                  Navigator.pop(context);
-                }),
-            ListTile(
               title: const Text('배달 내역 확인'),
               onTap: () {
                 Navigator.pop(context);
@@ -169,7 +163,10 @@ class _MyHomePageState extends State<MyhomePage> {
             ListTile(
               title: const Text('배달원 등록'),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => delivery()),
+                );
               },
             ),
           ],
@@ -286,6 +283,7 @@ class _MyHomePageState extends State<MyhomePage> {
     var check = email.toString().split("@");
     if(check[1] != "handong.ac.kr") {
       showSnackBar(context);
+      _sign_Out();
     }
 
 
