@@ -4,7 +4,6 @@ import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'Profile.dart';
-import 'Phone.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,7 +27,6 @@ class MyApp extends StatelessWidget {
       home: const MyhomePage(),
       routes: {
         '/Profile': (context) => Profile(),
-        '/Phone': (context) => Phone(),
       },
     );
   }
@@ -174,13 +172,6 @@ class _MyHomePageState extends State<MyhomePage> {
                 Navigator.pop(context);
               },
             ),
-            ListTile(
-                title: const Text('휴대폰인증'),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Phone())
-                  );
-                }),
           ],
         ),
       ),
