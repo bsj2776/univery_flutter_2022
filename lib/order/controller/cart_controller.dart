@@ -11,5 +11,5 @@ class CartController extends GetxController{
     cartItems.add(product);/*이제 어디에서나 addToItem 메서드를 부르면 그 즉시 cartItems가 업데이트 될것이고
     이 CartController를 listen 하고 있는 UI는 어디에 있든지 역시나 즉시 업데이트 될것이다. */
   }
-
+//test해봄ㅇㅇㅇ
 }

@@ -10,7 +10,7 @@ class ShoppingController extends GetxController{
   @override
   void onInit(){
     super.onInit();
-  fetchData();
+
   }
 
   void fetchData() async{//서버에서 데이터를 끌어오는 역할을 해야하므로 async방식
@@ -44,5 +44,6 @@ class ShoppingController extends GetxController{
     ];
 
     products.assignAll(productData);
+
   }
 }
