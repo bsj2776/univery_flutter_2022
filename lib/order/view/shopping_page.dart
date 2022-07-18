@@ -69,7 +69,7 @@ class ShoppingPage extends StatelessWidget{
               return Text('Total amount: \$ ${controller.totalPrice}',
                 style: TextStyle(//화면 맨 아래 가운데 글자
                 fontSize: 25,
-                color: Colors.white),
+                color: Colors.white),//그만
               );
             }
           ),
