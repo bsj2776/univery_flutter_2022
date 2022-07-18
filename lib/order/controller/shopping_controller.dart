@@ -10,6 +10,39 @@ class ShoppingController extends GetxController{
   @override
   void onInit(){
     super.onInit();
+  fetchData();
+  }
 
+  void fetchData() async{//서버에서 데이터를 끌어오는 역할을 해야하므로 async방식
+    await Future.delayed(Duration(seconds: 2));//2초후에 데이터 들어오게 하기
+    var productData = [
+      Product(
+          id: 1,
+          productDescription: 'some description about product',
+          productName: 'Mouse',
+          price: 30),
+      Product(
+          id: 2,
+          productDescription: 'some description about product',
+          productName: 'Keyboard',
+          price: 40),
+      Product(
+          id: 3,
+          productDescription: 'some description about product',
+          productName: 'Monitor',
+          price: 620),
+      Product(
+          id: 4,
+          productDescription: 'some description about product',
+          productName: 'Ram',
+          price: 80),
+      Product(
+          id: 5,
+          productDescription: 'some description about product',
+          productName: 'Speaker',
+          price: 120.5),
+    ];
+
+    products.assignAll(productData);
   }
 }
