@@ -10,6 +10,6 @@ class ShoppingController extends GetxController{
   @override
   void onInit(){
     super.onInit();
-
+//dkjldlkdjfasdf
   }
 }
