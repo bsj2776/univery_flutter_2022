@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:get/get.dart';
 import 'package:univery_flutter_2022/delivery.dart' as u;
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'Profile.dart';
 import 'order/view/shopping_page.dart';
+import 'package:univery_flutter_2022/Screen/order.dart';
+import 'package:univery_flutter_2022/Screen/deliver.dart' as d;
 import 'dart:ui';
 
 void main() async {
@@ -31,6 +34,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/Profile': (context) => Profile(),
         '/Delivery': (context) => u.delivery(),
+        '/Order': (context) => order(),
+        '/Deliver': (context) => d.deliver(),
       },
     );
   }
@@ -148,13 +153,22 @@ class _MyHomePageState extends State<MyhomePage> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50),
                   ),
-                  child: SizedBox(
-                    width: size.width / 2 - 20,
-                    height: height_Button,
-                    child: Center(
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => order()),
+                      );
+                    },
+                    child: SizedBox(
+                      width: size.width / 2 - 20,
+                      height: height_Button,
+                      child: Center(
                         child: Text('주문하기',
                             style: TextStyle(
-                                fontSize: 30, color: Color(0xff326295)))),
+                                fontSize: 30, color: Color(0xff326295))),
+                      ),
+                    ),
                   )),
               Card(
                 elevation: 20,
