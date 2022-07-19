@@ -46,12 +46,12 @@ class ShoppingPage extends StatelessWidget{
                                   ),
                                 ],
                               ),
-                              ElevatedButton(
+                              /*ElevatedButton(
                                   onPressed: (){
                                     cartController.addToItem(controller.products[index]);
                                   },
                                   child: Text('Add to cart'),//card안 오른쪽 아래 버튼/ add to cart버튼을 누를때마다 해당아이템의 가격이 합산되어서 출력됨
-                              ),
+                              ),*/
                             ],
                           ),
                         ),
@@ -90,8 +90,8 @@ class ShoppingPage extends StatelessWidget{
      );
             }
           ),
-      icon: Icon(Icons.add_shopping_cart_rounded),
-      backgroundColor: Colors.black87
+      /*icon: Icon(Icons.add_shopping_cart_rounded),
+      backgroundColor: Colors.black87*/
       ),
     );
   }
