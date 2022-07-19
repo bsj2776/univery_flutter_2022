@@ -36,7 +36,7 @@ class ShoppingPage extends StatelessWidget{
                                       Text(
                                         '${controller.products[index].productName}',//card안 왼쪽 위 글자(칼럼 안)/string interpolation을 사용해서 controller를 불러오고
                                         //뒤에 products를 불러와서 인덱스를 가져옴
-                                      style: TextStyle(fontSize: 24),
+                                        style: TextStyle(fontSize: 24),
                                       ),
                                       Text('${controller.products[index].productDescription}'),//product밑 글자(칼럼 안)
                                     ],

@@ -5,6 +5,7 @@ import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'Profile.dart';
+import 'order/view/shopping_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -151,7 +152,8 @@ class _MyHomePageState extends State<MyhomePage> {
             ListTile(
               title: const Text('주문 내역 확인'),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (_)=>ShoppingPage()));
               },
             ),
             ListTile(
