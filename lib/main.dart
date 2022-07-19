@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'Profile.dart';
 import 'order/view/shopping_page.dart';
+import 'dart:ui';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,7 +52,7 @@ class MyhomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class AppState{
+class AppState {
   bool loading;
   User? user;
   String? userEmail;
@@ -59,14 +60,13 @@ class AppState{
 }
 
 class _MyHomePageState extends State<MyhomePage> {
-
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final app = AppState(false, null, null);
 
   @override
   Widget build(BuildContext context) {
-    if(app.loading) return _loading();
+    if (app.loading) return _loading();
     //if(app.user == null) return _signIn();
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
@@ -74,19 +74,21 @@ class _MyHomePageState extends State<MyhomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return main();
+    return main(context);
   }
 
-  Widget _loading(){
+  Widget _loading() {
     return Scaffold(
-        appBar: AppBar(title : const Text("loading...")),
-        body : const Center(child: CircularProgressIndicator())
-    );
+        appBar: AppBar(title: const Text("loading...")),
+        body: const Center(child: CircularProgressIndicator()));
   }
 
-  Widget main(){
+  Widget main(BuildContext context) {
     final String? email = _auth.currentUser?.email;
     var check = email.toString().split("@");
+    Size size = MediaQuery.of(context).size;
+    double height_Button = 150;
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(70.0),
@@ -96,7 +98,7 @@ class _MyHomePageState extends State<MyhomePage> {
           title: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: const <Widget>[
+            children: <Widget>[
               Center(
                 child: Text(
                   'HGU-Univery',
@@ -121,7 +123,8 @@ class _MyHomePageState extends State<MyhomePage> {
                     Icons.camera_alt,
                     color: Colors.white,
                     size: 40,
-                  ), onPressed: () {  },
+                  ),
+                  onPressed: () {},
                 ),
               ],
             )
@@ -130,7 +133,40 @@ class _MyHomePageState extends State<MyhomePage> {
       ),
 
       body: Center(
-          child: Text('배달리스트로 이동'),
+        child: ListView(
+          children: [
+            SizedBox(
+              height: height_Button,
+            ),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+              Card(
+                  elevation: 20,
+                  color: Colors.amber,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: SizedBox(
+                    width: size.width / 2 - 40,
+                    height: height_Button,
+                    child: Center(
+                        child: Text('주문하기', style: TextStyle(fontSize: 30))),
+                  )),
+              Card(
+                elevation: 20,
+                color: Colors.amber,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: SizedBox(
+                  width: size.width / 2 - 40,
+                  height: height_Button,
+                  child: Center(
+                      child: Text('배달하기', style: TextStyle(fontSize: 30))),
+                ),
+              ),
+            ]),
+          ],
+        ),
       ),
 
       //슬라이드 메뉴
@@ -139,10 +175,12 @@ class _MyHomePageState extends State<MyhomePage> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             //로그인 회원가입 창
-            if(app.user == null) Login_SignUp()
-            else if(check[1] != "handong.ac.kr")
+            if (app.user == null)
               Login_SignUp()
-            else Login_done(),
+            else if (check[1] != "handong.ac.kr")
+              Login_SignUp()
+            else
+              Login_done(),
             ListTile(
               title: const Text('배달 내역 확인'),
               onTap: () {
@@ -153,7 +191,7 @@ class _MyHomePageState extends State<MyhomePage> {
               title: const Text('주문 내역 확인'),
               onTap: () {
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (_)=>ShoppingPage()));
+                    context, MaterialPageRoute(builder: (_) => ShoppingPage()));
               },
             ),
             ListTile(
@@ -178,30 +216,29 @@ class _MyHomePageState extends State<MyhomePage> {
     );
   }
 
-  Widget Login_done(){
+  Widget Login_done() {
     return DrawerHeader(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           FlatButton(
-            child: const Text(
-              '내 정보',
-              style: const TextStyle(
-                height: 0.5,
-                fontWeight: FontWeight.bold,
-                fontSize: 30,
-                //fontFamily: 'Nanum Myeongjo',
-                fontStyle: FontStyle.normal,
-                color: Colors.white,
+              child: const Text(
+                '내 정보',
+                style: const TextStyle(
+                  height: 0.5,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                  //fontFamily: 'Nanum Myeongjo',
+                  fontStyle: FontStyle.normal,
+                  color: Colors.white,
+                ),
               ),
-            ),
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => Profile()),
                 );
-              }
-          ),
+              }),
           const SizedBox(
             height: 10,
           ),
@@ -217,10 +254,9 @@ class _MyHomePageState extends State<MyhomePage> {
                   color: Colors.white,
                 ),
               ),
-              onPressed: (){
+              onPressed: () {
                 _sign_Out();
-              }
-          ),
+              }),
         ],
       ),
       decoration: const BoxDecoration(
@@ -258,20 +294,22 @@ class _MyHomePageState extends State<MyhomePage> {
     );
   }
 
-  Future<String> _signIn() async{
+  Future<String> _signIn() async {
     setState(() => app.loading = true);
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
     // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
 
     // Create a new credential
     final credential = GoogleAuthProvider.credential(
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
     );
-    final UserCredential awitAsult = await _auth.signInWithCredential(credential);
+    final UserCredential awitAsult =
+        await _auth.signInWithCredential(credential);
     final User? user = awitAsult.user;
 
     setState(() {
@@ -283,16 +321,15 @@ class _MyHomePageState extends State<MyhomePage> {
 
     final String? email = _auth.currentUser?.email;
     var check = email.toString().split("@");
-    if(check[1] != "handong.ac.kr") {
+    if (check[1] != "handong.ac.kr") {
       showSnackBar(context);
       _sign_Out();
     }
 
-
     return 'successor';
   }
 
-  _sign_Out() async{
+  _sign_Out() async {
     await _googleSignIn.signOut();
     setState(() {
       return app.user = null;
@@ -314,5 +351,4 @@ class _MyHomePageState extends State<MyhomePage> {
       backgroundColor: Colors.blue,
     ));
   }
-  
 }
