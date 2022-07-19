@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:univery_flutter_2022/delivery.dart';
+import 'package:univery_flutter_2022/delivery.dart' as u;
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       home: const MyhomePage(),
       routes: {
         '/Profile': (context) => Profile(),
-        '/Delivery': (context) => delivery(),
+        '/Delivery': (context) => u.delivery(),
       },
     );
   }
@@ -205,7 +205,7 @@ class _MyHomePageState extends State<MyhomePage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => delivery()),
+                  MaterialPageRoute(builder: (context) => u.delivery()),
                 );
               },
             ),

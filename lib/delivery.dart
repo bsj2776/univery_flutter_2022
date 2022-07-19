@@ -151,35 +151,14 @@ class delivery extends StatelessWidget {
   Future createUser({required String name}) async{
     final docUser = FirebaseFirestore.instance.collection('users').doc('my-id');
 
-    final user = User{
-      id: docUser.id,
+    /*final user{
       'name': name,
       'age': 21,
       'birthday': DateTime(2001, 7, 28),
     };
     final json = user.toJson();
-    await docUser.set(json);
+    await docUser.set(json);*/
   }
-}
-class User{
-  String id;
-  final String name;
-  final int age;
-  final DateTime birthday;
-
-  User({
-    this.id = '',
-    required this.name,
-    required this.age,
-    required this.birthday,
-  });
-
-  Map<String, dynamic> toJson() => {
-    'id': id,
-    'name': name,
-    'age': age,
-    'birthday':birthday,
-  };
 }
 
 void showSnackBar(BuildContext context) {
