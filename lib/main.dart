@@ -91,8 +91,11 @@ class _MyHomePageState extends State<MyhomePage> {
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(70.0),
+        preferredSize: const Size.fromHeight(60.0),
         child: AppBar(
+          backgroundColor: Color(0xff326295),
+          shape: RoundedRectangleBorder(),
+          elevation: 10,
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
           title: Column(
@@ -136,32 +139,36 @@ class _MyHomePageState extends State<MyhomePage> {
         child: ListView(
           children: [
             SizedBox(
-              height: height_Button,
+              height: 50,
             ),
             Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
               Card(
                   elevation: 20,
-                  color: Colors.amber,
+                  color: Colors.white, //Color(0xff326295),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50),
                   ),
                   child: SizedBox(
-                    width: size.width / 2 - 40,
+                    width: size.width / 2 - 20,
                     height: height_Button,
                     child: Center(
-                        child: Text('주문하기', style: TextStyle(fontSize: 30))),
+                        child: Text('주문하기',
+                            style: TextStyle(
+                                fontSize: 30, color: Color(0xff326295)))),
                   )),
               Card(
                 elevation: 20,
-                color: Colors.amber,
+                color: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50),
                 ),
                 child: SizedBox(
-                  width: size.width / 2 - 40,
+                  width: size.width / 2 - 20,
                   height: height_Button,
                   child: Center(
-                      child: Text('배달하기', style: TextStyle(fontSize: 30))),
+                      child: Text('배달하기',
+                          style: TextStyle(
+                              fontSize: 30, color: Color(0xff326295)))),
                 ),
               ),
             ]),
