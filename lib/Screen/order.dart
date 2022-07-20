@@ -13,7 +13,7 @@ class order extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text('주문하기'),
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: Color(0xff326295),
         ),
         body: Builder(
           builder: (context) {
@@ -88,26 +88,22 @@ class order extends StatelessWidget {
                                 SizedBox(
                                   height: 100,
                                 ),
-                                Container(
-                                  width: 111,
-                                  height: 80,
-                                  child: RaisedButton(
-                                      child: Text(
-                                        '완료 ',
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 20),
-                                      ),
-                                      color: Theme.of(context).primaryColor,
-                                      onPressed: () {
-                                        if (controller == null) {
-                                          showSnackBar(context);
-                                        } else {
-                                          showSnackBar2(context);
-                                          final name = controller.text;
-                                          createUser(name: name);
-                                        }
-                                      }),
-                                )
+                                RaisedButton(
+                                  color: Color(0xff326295),
+                                  onPressed: () {
+                                    if (controller == null) {
+                                      showSnackBar(context);
+                                    } else {
+                                      showSnackBar2(context);
+                                      final name = controller.text;
+                                      createUser(name: name);
+                                    }
+                                  },
+                                  child: Text(
+                                    '결제하기',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
                               ]),
                             ),
                           ),

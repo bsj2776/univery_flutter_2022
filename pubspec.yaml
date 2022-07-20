@@ -39,6 +39,8 @@ dependencies:
   google_sign_in: ^5.3.3
   get:
   iamport_flutter: ^0.10.1+4
+  flutter_localized_locales: ^2.0.3
+  intl: ^0.17.0
   # flutter_html: ^2.2.1
   # webview_flutter: ^2.8.0
 
