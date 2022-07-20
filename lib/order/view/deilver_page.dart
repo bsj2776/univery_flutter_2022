@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:univery_flutter_2022/order/controller/cart_controller.dart';
 import 'package:univery_flutter_2022/order/controller/shopping_controller.dart';
 
-class ShoppingPage extends StatelessWidget {
-  ShoppingPage({Key? key}) : super(key: key);
+class dilverpage extends StatelessWidget {
+  dilverpage({Key? key}) : super(key: key);
   final shoppingController = Get.put(ShoppingController());
   final cartController =
       Get.put(CartController()); //일단 controller가 디펜던시 인젝션 되면 다시 생성할 필요 없음
@@ -12,10 +12,6 @@ class ShoppingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('주문하기'),
-        backgroundColor: Color(0xff326295),
-      ),
       backgroundColor: Color(0xff326295),
       body: Column(
         children: [

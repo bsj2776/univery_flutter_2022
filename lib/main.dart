@@ -9,6 +9,7 @@ import 'Profile.dart';
 import 'order/view/shopping_page.dart';
 import 'package:univery_flutter_2022/Screen/order.dart';
 import 'package:univery_flutter_2022/Screen/deliver.dart' as d;
+import 'package:univery_flutter_2022/order/view/deilver_page.dart' as deliver;
 import 'dart:ui';
 
 void main() async {
@@ -144,52 +145,57 @@ class _MyHomePageState extends State<MyhomePage> {
 
         body: TabBarView(
           children: [
-            Center(
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Card(
+            Container(
+              color: Color(0xff326295),
+              child: Center(
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Card(
+                          elevation: 20,
+                          color: Colors.white, //Color(0xff326295),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => order()),
+                              );
+                            },
+                            child: SizedBox(
+                              width: size.width / 2 - 20,
+                              height: height_Button,
+                              child: Center(
+                                child: Text('주문하기',
+                                    style: TextStyle(
+                                        fontSize: 30,
+                                        color: Color(0xff326295))),
+                              ),
+                            ),
+                          )),
+                      Card(
                         elevation: 20,
-                        color: Colors.white, //Color(0xff326295),
+                        color: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50),
                         ),
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => order()),
-                            );
-                          },
-                          child: SizedBox(
-                            width: size.width / 2 - 20,
-                            height: height_Button,
-                            child: Center(
-                              child: Text('주문하기',
+                        child: SizedBox(
+                          width: size.width / 2 - 20,
+                          height: height_Button,
+                          child: Center(
+                              child: Text('배달하기',
                                   style: TextStyle(
-                                      fontSize: 30, color: Color(0xff326295))),
-                            ),
-                          ),
-                        )),
-                    Card(
-                      elevation: 20,
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50),
+                                      fontSize: 30, color: Color(0xff326295)))),
+                        ),
                       ),
-                      child: SizedBox(
-                        width: size.width / 2 - 20,
-                        height: height_Button,
-                        child: Center(
-                            child: Text('배달하기',
-                                style: TextStyle(
-                                    fontSize: 30, color: Color(0xff326295)))),
-                      ),
-                    ),
-                  ]),
+                    ]),
+              ),
             ),
             Center(
-              child: Text("music"),
+              child: deliver.dilverpage(),
             ),
             Center(
               child: Text("apps"),
@@ -204,18 +210,18 @@ class _MyHomePageState extends State<MyhomePage> {
         bottomNavigationBar: Container(
           color: Colors.white, //색상
           child: Container(
-            height: 70,
-            padding: EdgeInsets.only(bottom: 10, top: 5),
+            height: 60,
+            padding: EdgeInsets.only(bottom: 5, top: 1, left: 2, right: 2),
             child: const TabBar(
               //tab 하단 indicator size -> .label = label의 길이
               //tab 하단 indicator size -> .tab = tab의 길이
-              indicatorSize: TabBarIndicatorSize.label,
+              indicatorSize: TabBarIndicatorSize.tab,
               //tab 하단 indicator color
-              indicatorColor: Colors.red,
+              indicatorColor: Color(0xff326295),
               //tab 하단 indicator weight
-              indicatorWeight: 2,
+              indicatorWeight: 4,
               //label color
-              labelColor: Colors.red,
+              labelColor: Color(0xff326295),
               //unselected label color
               unselectedLabelColor: Colors.black38,
               labelStyle: TextStyle(
@@ -225,24 +231,21 @@ class _MyHomePageState extends State<MyhomePage> {
                 Tab(
                   icon: Icon(
                     Icons.home_outlined,
+                    size: 30,
                   ),
-                  text: 'Home',
                 ),
                 Tab(
-                  icon: Icon(Icons.music_note),
-                  text: 'Music',
+                  icon: Icon(Icons.document_scanner_outlined),
                 ),
                 Tab(
                   icon: Icon(
                     Icons.apps,
                   ),
-                  text: 'Apps',
                 ),
                 Tab(
                   icon: Icon(
                     Icons.settings,
                   ),
-                  text: 'Settings',
                 )
               ],
             ),
