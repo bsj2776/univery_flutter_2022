@@ -1,12 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class delivery extends StatelessWidget {
-  TextEditingController controller = TextEditingController();
-  TextEditingController controller2 = TextEditingController();
-  TextEditingController controller3 = TextEditingController();
-  TextEditingController controller4 = TextEditingController();
-  TextEditingController controller5 = TextEditingController();
+class delivery extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() => _delivery();
+}
+
+class _delivery extends State<delivery> {
+  TextEditingController controllerName = TextEditingController();
+  TextEditingController controllerStudent = TextEditingController();
+  TextEditingController controllerPhone = TextEditingController();
+  TextEditingController controllerAccount = TextEditingController();
+  TextEditingController controllerBank = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +58,7 @@ class delivery extends StatelessWidget {
                                   height: 0,
                                 ),
                                 TextField(
-                                  controller: controller,
+                                  controller: controllerName,
                                   decoration:
                                   InputDecoration(labelText: 'ex) 홍길동'),
                                   keyboardType: TextInputType.emailAddress,
@@ -64,7 +69,7 @@ class delivery extends StatelessWidget {
                                   child: Text('학번 '),
                                 ),
                                 TextField(
-                                  controller: controller2,
+                                  controller: controllerStudent,
                                   decoration:
                                   InputDecoration(labelText: 'ex) 22100000 '),
                                   keyboardType: TextInputType.emailAddress,
@@ -78,7 +83,7 @@ class delivery extends StatelessWidget {
                                   child: Text('전화번호 '),
                                 ),
                                 TextField(
-                                  controller: controller3,
+                                  controller: controllerPhone,
                                   decoration:
                                   InputDecoration(labelText: 'ex) 010-0000-0000 '),
                                   keyboardType: TextInputType.emailAddress,
@@ -95,7 +100,7 @@ class delivery extends StatelessWidget {
                                   ),
                                 ),
                                 TextField(
-                                  controller: controller4,
+                                  controller: controllerAccount,
                                   decoration:
                                   InputDecoration(labelText: ''),
                                   keyboardType: TextInputType.emailAddress,
@@ -106,7 +111,7 @@ class delivery extends StatelessWidget {
                                   child: Text('은행명 '),
                                 ),
                                 TextField(
-                                  controller: controller5,
+                                  controller: controllerBank,
                                   decoration:
                                   InputDecoration(labelText: 'ex) 기업은행 '),
                                   keyboardType: TextInputType.emailAddress,
@@ -125,13 +130,20 @@ class delivery extends StatelessWidget {
                                       ),
                                       color: Theme.of(context).primaryColor,
                                       onPressed: () {
-                                        if (controller == null) {
-                                          showSnackBar(context);
-                                        } else {
-                                          showSnackBar2(context);
-                                          final name = controller.text;
-                                          createUser(name: name);
-                                        }
+                                          final user = User(
+                                            name: controllerName.text,
+                                            studentId: controllerStudent.text,
+                                            phone: controllerPhone.text,
+                                            account: controllerAccount.text,
+                                            bank: controllerBank.text,
+                                          );
+                                          if(user.name == "" || user.studentId == null || user.phone == null ||
+                                            user.account == null || user.bank == null){
+                                            showSnackBar(context);
+                                          }else {
+                                            createUser(user);
+                                            showSnackBar2(context);
+                                          }
                                       }),
                                 )
                               ]),
@@ -148,22 +160,45 @@ class delivery extends StatelessWidget {
         )
     );
   }
-  Future createUser({required String name}) async{
-    final docUser = FirebaseFirestore.instance.collection('users').doc('my-id');
+  Future createUser(User user) async{
+    final docUser = FirebaseFirestore.instance.collection('users').doc();
+    user.id = docUser.id;
 
-    /*final user{
-      'name': name,
-      'age': 21,
-      'birthday': DateTime(2001, 7, 28),
-    };
     final json = user.toJson();
-    await docUser.set(json);*/
+    ///create document and write data to Firebase
+    await docUser.set(json);
   }
+}
+class User {
+  String id;
+  final String name;
+  final String studentId;
+  final String phone;
+  final String account;
+  final String bank;
+
+  User({
+    this.id = '',
+    required this.name,
+    required this.studentId,
+    required this.phone,
+    required this.account,
+    required this.bank,
+  });
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'name': name,
+    'studentId': studentId,
+    'phone': phone,
+    'account': account,
+    'bank': bank,
+  };
 }
 
 void showSnackBar(BuildContext context) {
   Scaffold.of(context).showSnackBar(SnackBar(
-    content: Text('필수입력란을 채워야 합니다', textAlign: TextAlign.center),
+    content: Text('모든 입력란을 채워야 합니다', textAlign: TextAlign.center),
     duration: Duration(seconds: 2),
     backgroundColor: Colors.blue,
   ));
