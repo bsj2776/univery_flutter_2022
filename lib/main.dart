@@ -10,6 +10,8 @@ import 'order/view/shopping_page.dart';
 import 'package:univery_flutter_2022/Screen/order.dart';
 import 'package:univery_flutter_2022/Screen/deliver.dart' as d;
 import 'package:univery_flutter_2022/order/view/deilver_page.dart' as deliver;
+import 'package:univery_flutter_2022/Screen/setting.dart' as se;
+import 'package:univery_flutter_2022/Screen/onairdoc.dart' as onAir;
 import 'dart:ui';
 
 void main() async {
@@ -96,7 +98,7 @@ class _MyHomePageState extends State<MyhomePage> {
     double height_Button = 150;
 
     return DefaultTabController(
-      length: 4,
+      length: 3,
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60.0),
@@ -106,23 +108,29 @@ class _MyHomePageState extends State<MyhomePage> {
             elevation: 10,
             // Here we take the value from the MyHomePage object that was created by
             // the App.build method, and use it to set our appbar title.
-            title: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Center(
-                  child: Text(
-                    'HGU-Univery',
-                    style: TextStyle(
-                        height: 1.5,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 35,
-                        fontFamily: 'Nanum Barumpen',
-                        //나눔 글꼴
-                        fontStyle: FontStyle.normal),
+            title: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    child: Text(
+                      'HGU-Univery',
+                      style: TextStyle(
+                          height: 1.5,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 35,
+                          fontFamily: 'Nanum Barumpen',
+                          //나눔 글꼴
+                          fontStyle: FontStyle.normal),
+                    ),
                   ),
-                ),
-              ],
+                  SizedBox(
+                    width: 40,
+                    height: 10,
+                  )
+                ],
+              ),
             ),
             actions: <Widget>[
               Column(
@@ -172,26 +180,32 @@ class _MyHomePageState extends State<MyhomePage> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50),
                         ),
-                        child: SizedBox(
-                          width: size.width / 2 - 20,
-                          height: height_Button,
-                          child: Center(
-                              child: Text('배달하기',
-                                  style: TextStyle(
-                                      fontSize: 30, color: Color(0xff326295)))),
-                        ),
+                        child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          deliver.dilverpage()));
+                            },
+                            child: SizedBox(
+                              width: size.width / 2 - 20,
+                              height: height_Button,
+                              child: Center(
+                                  child: Text('배달하기',
+                                      style: TextStyle(
+                                          fontSize: 30,
+                                          color: Color(0xff326295)))),
+                            )),
                       ),
                     ]),
               ),
             ),
             Center(
-              child: deliver.dilverpage(),
+              child: onAir.onairdoc(),
             ),
             Center(
-              child: Text("apps"),
-            ),
-            Center(
-              child: Text("settings"),
+              child: se.SettingPage(),
             ),
           ],
         ),
@@ -229,14 +243,9 @@ class _MyHomePageState extends State<MyhomePage> {
                 ),
                 Tab(
                   icon: Icon(
-                    Icons.apps,
-                  ),
-                ),
-                Tab(
-                  icon: Icon(
                     Icons.settings,
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -265,12 +274,6 @@ class _MyHomePageState extends State<MyhomePage> {
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (_) => ShoppingPage()));
-                },
-              ),
-              ListTile(
-                title: const Text('수락한 배달 목록'),
-                onTap: () {
-                  Navigator.pop(context);
                 },
               ),
               ListTile(
