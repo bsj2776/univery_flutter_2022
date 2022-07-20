@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class delivery extends StatefulWidget{
+class delivery extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _delivery();
 }
@@ -18,7 +18,7 @@ class _delivery extends State<delivery> {
     return Scaffold(
         appBar: AppBar(
           title: Text('배달원 등록'),
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: Color(0xff326295),
         ),
         body: Builder(
           builder: (context) {
@@ -34,14 +34,13 @@ class _delivery extends State<delivery> {
                         child: Form(
                           child: Theme(
                             data: ThemeData(
-                              primaryColor: Theme.of(context).accentColor,
+                              primaryColor: Color(0xff326295),
                               inputDecorationTheme: const InputDecorationTheme(
                                   border: OutlineInputBorder(),
                                   labelStyle: TextStyle(
                                     color: Colors.teal,
                                     fontSize: 15.0,
-                                  )
-                              ),
+                                  )),
                             ),
                             child: Container(
                               padding: EdgeInsets.all(10),
@@ -60,7 +59,7 @@ class _delivery extends State<delivery> {
                                 TextField(
                                   controller: controllerName,
                                   decoration:
-                                  InputDecoration(labelText: 'ex) 홍길동'),
+                                      InputDecoration(labelText: 'ex) 홍길동'),
                                   keyboardType: TextInputType.emailAddress,
                                 ),
                                 SizedBox(
@@ -70,8 +69,8 @@ class _delivery extends State<delivery> {
                                 ),
                                 TextField(
                                   controller: controllerStudent,
-                                  decoration:
-                                  InputDecoration(labelText: 'ex) 22100000 '),
+                                  decoration: InputDecoration(
+                                      labelText: 'ex) 22100000 '),
                                   keyboardType: TextInputType.emailAddress,
                                 ),
                                 SizedBox(
@@ -84,8 +83,8 @@ class _delivery extends State<delivery> {
                                 ),
                                 TextField(
                                   controller: controllerPhone,
-                                  decoration:
-                                  InputDecoration(labelText: 'ex) 010-0000-0000 '),
+                                  decoration: InputDecoration(
+                                      labelText: 'ex) 010-0000-0000 '),
                                   keyboardType: TextInputType.emailAddress,
                                 ),
                                 SizedBox(
@@ -101,8 +100,7 @@ class _delivery extends State<delivery> {
                                 ),
                                 TextField(
                                   controller: controllerAccount,
-                                  decoration:
-                                  InputDecoration(labelText: ''),
+                                  decoration: InputDecoration(labelText: ''),
                                   keyboardType: TextInputType.emailAddress,
                                 ),
                                 SizedBox(
@@ -113,7 +111,7 @@ class _delivery extends State<delivery> {
                                 TextField(
                                   controller: controllerBank,
                                   decoration:
-                                  InputDecoration(labelText: 'ex) 기업은행 '),
+                                      InputDecoration(labelText: 'ex) 기업은행 '),
                                   keyboardType: TextInputType.emailAddress,
                                 ),
                                 SizedBox(
@@ -128,22 +126,25 @@ class _delivery extends State<delivery> {
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 20),
                                       ),
-                                      color: Theme.of(context).primaryColor,
+                                      color: Color(0xff326295),
                                       onPressed: () {
-                                          final user = User(
-                                            name: controllerName.text,
-                                            studentId: controllerStudent.text,
-                                            phone: controllerPhone.text,
-                                            account: controllerAccount.text,
-                                            bank: controllerBank.text,
-                                          );
-                                          if(user.name == "" || user.studentId == null || user.phone == null ||
-                                            user.account == null || user.bank == null){
-                                            showSnackBar(context);
-                                          }else {
-                                            createUser(user);
-                                            showSnackBar2(context);
-                                          }
+                                        final user = User(
+                                          name: controllerName.text,
+                                          studentId: controllerStudent.text,
+                                          phone: controllerPhone.text,
+                                          account: controllerAccount.text,
+                                          bank: controllerBank.text,
+                                        );
+                                        if (user.name == "" ||
+                                            user.studentId == null ||
+                                            user.phone == null ||
+                                            user.account == null ||
+                                            user.bank == null) {
+                                          showSnackBar(context);
+                                        } else {
+                                          createUser(user);
+                                          showSnackBar2(context);
+                                        }
                                       }),
                                 )
                               ]),
@@ -157,18 +158,20 @@ class _delivery extends State<delivery> {
               ),
             );
           },
-        )
-    );
+        ));
   }
-  Future createUser(User user) async{
+
+  Future createUser(User user) async {
     final docUser = FirebaseFirestore.instance.collection('users').doc();
     user.id = docUser.id;
 
     final json = user.toJson();
+
     ///create document and write data to Firebase
     await docUser.set(json);
   }
 }
+
 class User {
   String id;
   final String name;
@@ -187,13 +190,13 @@ class User {
   });
 
   Map<String, dynamic> toJson() => {
-    'id': id,
-    'name': name,
-    'studentId': studentId,
-    'phone': phone,
-    'account': account,
-    'bank': bank,
-  };
+        'id': id,
+        'name': name,
+        'studentId': studentId,
+        'phone': phone,
+        'account': account,
+        'bank': bank,
+      };
 }
 
 void showSnackBar(BuildContext context) {
