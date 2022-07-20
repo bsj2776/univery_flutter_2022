@@ -128,16 +128,6 @@ class _MyHomePageState extends State<MyhomePage> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  IconButton(
-                    icon: const Icon(
-                      Icons.camera_alt,
-                      color: Colors.white,
-                      size: 40,
-                    ),
-                    onPressed: () {},
-                  ),
-                ],
               ),
             ],
           ),
