@@ -94,146 +94,206 @@ class _MyHomePageState extends State<MyhomePage> {
     Size size = MediaQuery.of(context).size;
     double height_Button = 150;
 
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60.0),
-        child: AppBar(
-          backgroundColor: Color(0xff326295),
-          shape: RoundedRectangleBorder(),
-          elevation: 10,
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-          title: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Center(
-                child: Text(
-                  'HGU-Univery',
-                  style: TextStyle(
-                      height: 1.5,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 35,
-                      fontFamily: 'Nanum Barumpen',
-                      //나눔 글꼴
-                      fontStyle: FontStyle.normal),
-                ),
-              ),
-            ],
-          ),
-          actions: <Widget>[
-            Column(
+    return DefaultTabController(
+      length: 4,
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(60.0),
+          child: AppBar(
+            backgroundColor: Color(0xff326295),
+            shape: RoundedRectangleBorder(),
+            elevation: 10,
+            // Here we take the value from the MyHomePage object that was created by
+            // the App.build method, and use it to set our appbar title.
+            title: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                IconButton(
-                  icon: const Icon(
-                    Icons.camera_alt,
-                    color: Colors.white,
-                    size: 40,
+                Center(
+                  child: Text(
+                    'HGU-Univery',
+                    style: TextStyle(
+                        height: 1.5,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 35,
+                        fontFamily: 'Nanum Barumpen',
+                        //나눔 글꼴
+                        fontStyle: FontStyle.normal),
                   ),
-                  onPressed: () {},
                 ),
               ],
-            )
-          ],
-        ),
-      ),
-
-      body: Center(
-        child: ListView(
-          children: [
-            SizedBox(
-              height: 50,
             ),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-              Card(
-                  elevation: 20,
-                  color: Colors.white, //Color(0xff326295),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
+            actions: <Widget>[
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  IconButton(
+                    icon: const Icon(
+                      Icons.camera_alt,
+                      color: Colors.white,
+                      size: 40,
+                    ),
+                    onPressed: () {},
                   ),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => order()),
-                      );
-                    },
-                    child: SizedBox(
-                      width: size.width / 2 - 20,
-                      height: height_Button,
-                      child: Center(
-                        child: Text('주문하기',
-                            style: TextStyle(
-                                fontSize: 30, color: Color(0xff326295))),
+                ],
+              ),
+            ],
+          ),
+        ),
+
+        body: TabBarView(
+          children: [
+            Center(
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Card(
+                        elevation: 20,
+                        color: Colors.white, //Color(0xff326295),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => order()),
+                            );
+                          },
+                          child: SizedBox(
+                            width: size.width / 2 - 20,
+                            height: height_Button,
+                            child: Center(
+                              child: Text('주문하기',
+                                  style: TextStyle(
+                                      fontSize: 30, color: Color(0xff326295))),
+                            ),
+                          ),
+                        )),
+                    Card(
+                      elevation: 20,
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child: SizedBox(
+                        width: size.width / 2 - 20,
+                        height: height_Button,
+                        child: Center(
+                            child: Text('배달하기',
+                                style: TextStyle(
+                                    fontSize: 30, color: Color(0xff326295)))),
                       ),
                     ),
-                  )),
-              Card(
-                elevation: 20,
-                color: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: SizedBox(
-                  width: size.width / 2 - 20,
-                  height: height_Button,
-                  child: Center(
-                      child: Text('배달하기',
-                          style: TextStyle(
-                              fontSize: 30, color: Color(0xff326295)))),
-                ),
-              ),
-            ]),
+                  ]),
+            ),
+            Center(
+              child: Text("music"),
+            ),
+            Center(
+              child: Text("apps"),
+            ),
+            Center(
+              child: Text("settings"),
+            ),
           ],
         ),
-      ),
+        extendBodyBehindAppBar: true, // add this line
 
-      //슬라이드 메뉴
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            //로그인 회원가입 창
-            if (app.user == null)
-              Login_SignUp()
-            else if (check[1] != "handong.ac.kr")
-              Login_SignUp()
-            else
-              Login_done(),
-            ListTile(
-              title: const Text('배달 내역 확인'),
-              onTap: () {
-                Navigator.pop(context);
-              },
+        bottomNavigationBar: Container(
+          color: Colors.white, //색상
+          child: Container(
+            height: 70,
+            padding: EdgeInsets.only(bottom: 10, top: 5),
+            child: const TabBar(
+              //tab 하단 indicator size -> .label = label의 길이
+              //tab 하단 indicator size -> .tab = tab의 길이
+              indicatorSize: TabBarIndicatorSize.label,
+              //tab 하단 indicator color
+              indicatorColor: Colors.red,
+              //tab 하단 indicator weight
+              indicatorWeight: 2,
+              //label color
+              labelColor: Colors.red,
+              //unselected label color
+              unselectedLabelColor: Colors.black38,
+              labelStyle: TextStyle(
+                fontSize: 13,
+              ),
+              tabs: [
+                Tab(
+                  icon: Icon(
+                    Icons.home_outlined,
+                  ),
+                  text: 'Home',
+                ),
+                Tab(
+                  icon: Icon(Icons.music_note),
+                  text: 'Music',
+                ),
+                Tab(
+                  icon: Icon(
+                    Icons.apps,
+                  ),
+                  text: 'Apps',
+                ),
+                Tab(
+                  icon: Icon(
+                    Icons.settings,
+                  ),
+                  text: 'Settings',
+                )
+              ],
             ),
-            ListTile(
-              title: const Text('주문 내역 확인'),
-              onTap: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (_) => ShoppingPage()));
-              },
-            ),
-            ListTile(
-              title: const Text('수락한 배달 목록'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: const Text('배달원 등록'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => u.delivery()),
-                );
-              },
-            ),
-          ],
+          ),
         ),
+
+        //슬라이드 메뉴
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              //로그인 회원가입 창
+              if (app.user == null)
+                Login_SignUp()
+              else if (check[1] != "handong.ac.kr")
+                Login_SignUp()
+              else
+                Login_done(),
+              ListTile(
+                title: const Text('배달 내역 확인'),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                title: const Text('주문 내역 확인'),
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => ShoppingPage()));
+                },
+              ),
+              ListTile(
+                title: const Text('수락한 배달 목록'),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                title: const Text('배달원 등록'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => u.delivery()),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+        // This trailing comma makes auto-formatting nicer for build methods.
       ),
-      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
@@ -281,7 +341,7 @@ class _MyHomePageState extends State<MyhomePage> {
         ],
       ),
       decoration: const BoxDecoration(
-        color: Colors.black,
+        color: Color(0xff326295),
       ),
     );
   }
@@ -310,7 +370,7 @@ class _MyHomePageState extends State<MyhomePage> {
         ],
       ),
       decoration: const BoxDecoration(
-        color: Colors.black,
+        color: Color(0xff326295),
       ),
     );
   }
