@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:univery_flutter_2022/Screen/paymant.dart' as pay;
 
 class order extends StatelessWidget {
   TextEditingController controller = TextEditingController();
@@ -91,13 +92,11 @@ class order extends StatelessWidget {
                                 RaisedButton(
                                   color: Color(0xff326295),
                                   onPressed: () {
-                                    if (controller == null) {
-                                      showSnackBar(context);
-                                    } else {
-                                      showSnackBar2(context);
-                                      final name = controller.text;
-                                      createUser(name: name);
-                                    }
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                pay.Payment()));
                                   },
                                   child: Text(
                                     '결제하기',
