@@ -55,7 +55,13 @@ class _onairdocState extends State<onairdoc> {
                 ),
                 Container(
                   child: Text(
-                    '몰라',
+                    '요청사항',
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                ),
+                Container(
+                  child: Text(
+                    '가격',
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
                 ),
