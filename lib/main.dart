@@ -12,7 +12,14 @@ import 'package:univery_flutter_2022/Screen/deliver.dart' as d;
 import 'package:univery_flutter_2022/order/view/deilver_page.dart' as deliver;
 import 'package:univery_flutter_2022/Screen/setting.dart' as se;
 import 'package:univery_flutter_2022/Screen/onairdoc.dart' as onAir;
+import 'package:carousel_slider/carousel_slider.dart';
 import 'dart:ui';
+
+final List<String> imgList = [
+  'assts/images/deliver_a.jpg',
+  'assts/images/deliver_b.jpg',
+  'assts/images/deliver_c.jpg',
+];
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -146,59 +153,83 @@ class _MyHomePageState extends State<MyhomePage> {
             Container(
               color: Color(0xff326295),
               child: Center(
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Card(
-                          elevation: 20,
-                          color: Colors.white, //Color(0xff326295),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => order()),
-                              );
-                            },
-                            child: SizedBox(
-                              width: size.width / 2 - 20,
-                              height: height_Button,
-                              child: Center(
-                                child: Text('주문하기',
-                                    style: TextStyle(
-                                        fontSize: 30,
-                                        color: Color(0xff326295))),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 100,
+                    ),
+                    CarouselSlider(
+                      options: CarouselOptions(height: 200.0),
+                      items: imgList.map((i) {
+                        return Builder(
+                          builder: (BuildContext context) {
+                            return Container(
+                                width: MediaQuery.of(context).size.width,
+                                margin: EdgeInsets.symmetric(horizontal: 5.0),
+                                decoration: BoxDecoration(color: Colors.white),
+                                child: Image.asset(i));
+                          },
+                        );
+                      }).toList(),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Card(
+                              elevation: 20,
+                              color: Colors.white, //Color(0xff326295),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50),
                               ),
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => order()),
+                                  );
+                                },
+                                child: SizedBox(
+                                  width: size.width / 2 - 20,
+                                  height: height_Button,
+                                  child: Center(
+                                    child: Text('주문하기',
+                                        style: TextStyle(
+                                            fontSize: 30,
+                                            color: Color(0xff326295))),
+                                  ),
+                                ),
+                              )),
+                          Card(
+                            elevation: 20,
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50),
                             ),
-                          )),
-                      Card(
-                        elevation: 20,
-                        color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                        child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          deliver.dilverpage()));
-                            },
-                            child: SizedBox(
-                              width: size.width / 2 - 20,
-                              height: height_Button,
-                              child: Center(
-                                  child: Text('배달하기',
-                                      style: TextStyle(
-                                          fontSize: 30,
-                                          color: Color(0xff326295)))),
-                            )),
-                      ),
-                    ]),
+                            child: InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              deliver.dilverpage()));
+                                },
+                                child: SizedBox(
+                                  width: size.width / 2 - 20,
+                                  height: height_Button,
+                                  child: Center(
+                                      child: Text('배달하기',
+                                          style: TextStyle(
+                                              fontSize: 30,
+                                              color: Color(0xff326295)))),
+                                )),
+                          ),
+                        ]),
+                  ],
+                ),
               ),
             ),
             Center(
