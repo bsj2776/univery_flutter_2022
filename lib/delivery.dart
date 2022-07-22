@@ -7,7 +7,6 @@ class delivery extends StatefulWidget {
 }
 
 class _delivery extends State<delivery> {
-  TextEditingController controllerName = TextEditingController();
   TextEditingController controllerStudent = TextEditingController();
   TextEditingController controllerPhone = TextEditingController();
   TextEditingController controllerAccount = TextEditingController();
@@ -46,23 +45,6 @@ class _delivery extends State<delivery> {
                               padding: EdgeInsets.all(10),
                               child: Column(children: <Widget>[
                                 SizedBox(
-                                  height: 10,
-                                ),
-                                SizedBox(
-                                  width: 400,
-                                  height: 20,
-                                  child: Text('이름'),
-                                ),
-                                SizedBox(
-                                  height: 0,
-                                ),
-                                TextField(
-                                  controller: controllerName,
-                                  decoration:
-                                      InputDecoration(labelText: 'ex) 홍길동'),
-                                  keyboardType: TextInputType.emailAddress,
-                                ),
-                                SizedBox(
                                   width: 400,
                                   height: 20,
                                   child: Text('학번 '),
@@ -100,7 +82,7 @@ class _delivery extends State<delivery> {
                                 ),
                                 TextField(
                                   controller: controllerAccount,
-                                  decoration: InputDecoration(labelText: ''),
+                                  decoration: InputDecoration(labelText: '-을 포함시켜주세요'),
                                   keyboardType: TextInputType.emailAddress,
                                 ),
                                 SizedBox(
@@ -128,7 +110,7 @@ class _delivery extends State<delivery> {
                                       ),
                                       color: Color(0xff326295),
                                       onPressed: () {
-                                        final user = User(
+                                        /*final user = User(
                                           name: controllerName.text,
                                           studentId: controllerStudent.text,
                                           phone: controllerPhone.text,
@@ -144,7 +126,16 @@ class _delivery extends State<delivery> {
                                         } else {
                                           createUser(user);
                                           showSnackBar2(context);
-                                        }
+                                        }*/
+                                        final docUser = FirebaseFirestore.instance.collection('users').doc(controllerStudent.text);
+                                        docUser.update({
+                                          'studentId': controllerStudent.text,
+                                          'phone': controllerPhone.text,
+                                          'account': controllerAccount.text,
+                                          'bank': controllerBank.text,
+                                          'delivery' : 1,
+                                        });
+                                        showSnackBar2(context);
                                       }),
                                 )
                               ]),
@@ -161,14 +152,30 @@ class _delivery extends State<delivery> {
         ));
   }
 
-  Future createUser(User user) async {
-    final docUser = FirebaseFirestore.instance.collection('users').doc();
+  /*Future createUser(User user) async {
+    final docUser = FirebaseFirestore.instance.collection('users').doc(user.studentId);
     user.id = docUser.id;
 
     final json = user.toJson();
 
     ///create document and write data to Firebase
     await docUser.set(json);
+  }*/
+
+  void showSnackBar(BuildContext context) {
+    Scaffold.of(context).showSnackBar(SnackBar(
+      content: Text('모든 입력란을 채워야 합니다', textAlign: TextAlign.center),
+      duration: Duration(seconds: 2),
+      backgroundColor: Colors.blue,
+    ));
+  }
+
+  void showSnackBar2(BuildContext context) {
+    Scaffold.of(context).showSnackBar(SnackBar(
+      content: Text('등록이 완료되었습니다', textAlign: TextAlign.center),
+      duration: Duration(seconds: 2),
+      backgroundColor: Theme.of(context).primaryColor,
+    ));
   }
 }
 
@@ -197,20 +204,4 @@ class User {
         'account': account,
         'bank': bank,
       };
-}
-
-void showSnackBar(BuildContext context) {
-  Scaffold.of(context).showSnackBar(SnackBar(
-    content: Text('모든 입력란을 채워야 합니다', textAlign: TextAlign.center),
-    duration: Duration(seconds: 2),
-    backgroundColor: Colors.blue,
-  ));
-}
-
-void showSnackBar2(BuildContext context) {
-  Scaffold.of(context).showSnackBar(SnackBar(
-    content: Text('등록이 완료되었습니다', textAlign: TextAlign.center),
-    duration: Duration(seconds: 2),
-    backgroundColor: Theme.of(context).primaryColor,
-  ));
 }
