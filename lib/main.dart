@@ -146,7 +146,7 @@ class _MyHomePageState extends State<MyhomePage> {
                 children: <Widget>[
                   Container(
                     child: Text(
-                      'HGU-Univery',
+                      'Univery',
                       style: TextStyle(
                           height: 1.5,
                           fontWeight: FontWeight.bold,
