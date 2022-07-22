@@ -13,16 +13,18 @@ import 'package:univery_flutter_2022/order/view/deilver_page.dart' as deliver;
 import 'package:univery_flutter_2022/Screen/setting.dart' as se;
 import 'package:univery_flutter_2022/Screen/onairdoc.dart' as onAir;
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'dart:ui';
 
 final List<String> imgList = [
-  'assts/images/deliver_a.jpg',
-  'assts/images/deliver_b.jpg',
-  'assts/images/deliver_c.jpg',
+  'assets/images/deliver_a.png',
+  'assets/images/deliver_b.png',
+  'assets/images/deliver_c.png',
 ];
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -78,6 +80,26 @@ class _MyHomePageState extends State<MyhomePage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final app = AppState(false, null, null);
+
+  void initState() {
+    super.initState();
+    initialization();
+  }
+
+  void initialization() async {
+    // This is where you can initialize the resources needed by your app while
+    // the splash screen is displayed.  Remove the following example because
+    // delaying the user experience is a bad design practice!
+    // ignore_for_file: avoid_print
+    print('ready in 3...');
+    await Future.delayed(const Duration(seconds: 1));
+    print('ready in 2...');
+    await Future.delayed(const Duration(seconds: 1));
+    print('ready in 1...');
+    await Future.delayed(const Duration(seconds: 1));
+    print('go!');
+    FlutterNativeSplash.remove();
+  }
 
   @override
   Widget build(BuildContext context) {
