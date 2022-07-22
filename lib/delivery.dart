@@ -203,5 +203,5 @@ class User {
         'phone': phone,
         'account': account,
         'bank': bank,
-      };
+  };
 }

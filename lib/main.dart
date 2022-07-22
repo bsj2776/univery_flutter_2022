@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
@@ -125,6 +126,7 @@ class _MyHomePageState extends State<MyhomePage> {
     var check = email.toString().split("@");
     Size size = MediaQuery.of(context).size;
     double height_Button = 150;
+    final user = _auth.currentUser;
 
     return DefaultTabController(
       length: 3,
@@ -456,6 +458,18 @@ class _MyHomePageState extends State<MyhomePage> {
       _sign_Out();
     }
 
+    final s_user = Store_User(
+      uid: _auth.currentUser!.uid,
+      name: '_auth.currentUser.displayName',
+      email: '_auth.currentUser.email',
+      studentId: '',
+      phone: '',
+      account: '',
+      bank: '',
+      delivery: '0',
+    );
+    createUser(s_user);
+
     return 'successor';
   }
 
@@ -464,6 +478,14 @@ class _MyHomePageState extends State<MyhomePage> {
     setState(() {
       return app.user = null;
     });
+  }
+
+  Future createUser(Store_User user) async {
+    final docUser = FirebaseFirestore.instance.collection('users').doc(_auth.currentUser?.email);
+    final json = user.toJson();
+
+    ///create document and write data to Firebase
+    await docUser.set(json);
   }
 
   void showSnackBar(BuildContext context) {
@@ -481,4 +503,37 @@ class _MyHomePageState extends State<MyhomePage> {
       backgroundColor: Colors.blue,
     ));
   }
+}
+
+class Store_User {
+  final String uid;
+  final String name;
+  final String email;
+  final String studentId;
+  final String phone;
+  final String account;
+  final String bank;
+  final String delivery;
+
+  Store_User({
+    required this.uid,
+    required this.name,
+    required this.email,
+    required this.studentId,
+    required this.phone,
+    required this.account,
+    required this.bank,
+    required this.delivery,
+  });
+
+  Map<String, dynamic> toJson() => {
+    'uid':uid,
+    'name': name,
+    'email':email,
+    'studentId': studentId,
+    'phone': phone,
+    'account': account,
+    'bank': bank,
+    'delivery': delivery,
+  };
 }
