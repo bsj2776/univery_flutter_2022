@@ -457,11 +457,10 @@ class _MyHomePageState extends State<MyhomePage> {
       showSnackBar(context);
       _sign_Out();
     }
-
     final s_user = Store_User(
       uid: _auth.currentUser!.uid,
-      name: '_auth.currentUser.displayName',
-      email: '_auth.currentUser.email',
+      name: _auth.currentUser!.displayName,
+      email: _auth.currentUser!.email,
       studentId: '',
       phone: '',
       account: '',
@@ -507,8 +506,8 @@ class _MyHomePageState extends State<MyhomePage> {
 
 class Store_User {
   final String uid;
-  final String name;
-  final String email;
+  final String? name;
+  final String? email;
   final String studentId;
   final String phone;
   final String account;
@@ -527,7 +526,7 @@ class Store_User {
   });
 
   Map<String, dynamic> toJson() => {
-    'uid':uid,
+    'uid': uid,
     'name': name,
     'email':email,
     'studentId': studentId,
