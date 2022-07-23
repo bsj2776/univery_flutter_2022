@@ -480,7 +480,7 @@ class _MyHomePageState extends State<MyhomePage> {
   }
 
   Future createUser(Store_User user) async {
-    final docUser = FirebaseFirestore.instance.collection('users').doc(_auth.currentUser?.email);
+    final docUser = FirebaseFirestore.instance.collection('users').doc(_auth.currentUser?.uid);
     final json = user.toJson();
 
     ///create document and write data to Firebase
