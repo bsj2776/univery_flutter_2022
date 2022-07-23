@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyhomePage(),
+      home: MyhomePage(),
       routes: {
         '/Profile': (context) => Profile(),
         '/Delivery': (context) => u.delivery(),
@@ -480,7 +480,9 @@ class _MyHomePageState extends State<MyhomePage> {
   }
 
   Future createUser(Store_User user) async {
-    final docUser = FirebaseFirestore.instance.collection('users').doc(_auth.currentUser?.uid);
+    final docUser = FirebaseFirestore.instance
+        .collection('users')
+        .doc(_auth.currentUser?.uid);
     final json = user.toJson();
 
     ///create document and write data to Firebase
@@ -526,13 +528,13 @@ class Store_User {
   });
 
   Map<String, dynamic> toJson() => {
-    'uid': uid,
-    'name': name,
-    'email':email,
-    'studentId': studentId,
-    'phone': phone,
-    'account': account,
-    'bank': bank,
-    'delivery': delivery,
-  };
+        'uid': uid,
+        'name': name,
+        'email': email,
+        'studentId': studentId,
+        'phone': phone,
+        'account': account,
+        'bank': bank,
+        'delivery': delivery,
+      };
 }
