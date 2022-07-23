@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class delivery extends StatefulWidget {
   @override
@@ -11,6 +13,7 @@ class _delivery extends State<delivery> {
   TextEditingController controllerPhone = TextEditingController();
   TextEditingController controllerAccount = TextEditingController();
   TextEditingController controllerBank = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -110,24 +113,7 @@ class _delivery extends State<delivery> {
                                       ),
                                       color: Color(0xff326295),
                                       onPressed: () {
-                                        /*final user = User(
-                                          name: controllerName.text,
-                                          studentId: controllerStudent.text,
-                                          phone: controllerPhone.text,
-                                          account: controllerAccount.text,
-                                          bank: controllerBank.text,
-                                        );
-                                        if (user.name == "" ||
-                                            user.studentId == null ||
-                                            user.phone == null ||
-                                            user.account == null ||
-                                            user.bank == null) {
-                                          showSnackBar(context);
-                                        } else {
-                                          createUser(user);
-                                          showSnackBar2(context);
-                                        }*/
-                                        final docUser = FirebaseFirestore.instance.collection('users').doc(controllerStudent.text);
+                                        final docUser = FirebaseFirestore.instance.collection('users').doc(_auth.currentUser?.uid);
                                         docUser.update({
                                           'studentId': controllerStudent.text,
                                           'phone': controllerPhone.text,
@@ -152,16 +138,6 @@ class _delivery extends State<delivery> {
         ));
   }
 
-  /*Future createUser(User user) async {
-    final docUser = FirebaseFirestore.instance.collection('users').doc(user.studentId);
-    user.id = docUser.id;
-
-    final json = user.toJson();
-
-    ///create document and write data to Firebase
-    await docUser.set(json);
-  }*/
-
   void showSnackBar(BuildContext context) {
     Scaffold.of(context).showSnackBar(SnackBar(
       content: Text('모든 입력란을 채워야 합니다', textAlign: TextAlign.center),
@@ -177,31 +153,4 @@ class _delivery extends State<delivery> {
       backgroundColor: Theme.of(context).primaryColor,
     ));
   }
-}
-
-class User {
-  String id;
-  final String name;
-  final String studentId;
-  final String phone;
-  final String account;
-  final String bank;
-
-  User({
-    this.id = '',
-    required this.name,
-    required this.studentId,
-    required this.phone,
-    required this.account,
-    required this.bank,
-  });
-
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': name,
-        'studentId': studentId,
-        'phone': phone,
-        'account': account,
-        'bank': bank,
-  };
 }
