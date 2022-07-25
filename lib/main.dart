@@ -467,8 +467,20 @@ class _MyHomePageState extends State<MyhomePage> {
       bank: '',
       delivery: '0',
     );
-    createUser(s_user);
-
+    DocumentSnapshot snapshot;
+    try {
+      snapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(_auth.currentUser?.uid)
+          .get();
+      // 데이터가 없을 경우
+      if (snapshot.data() == null) {
+        // no document handling
+        createUser(s_user);
+      }
+    } catch (e) {
+      print(e);
+    }
     return 'successor';
   }
 
