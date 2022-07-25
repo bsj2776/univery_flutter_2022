@@ -2,6 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:univery_flutter_2022/Screen/paymant.dart' as pay;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:provider/provider.dart';
+import 'package:univery_flutter_2022/order/model/orderModel.dart';
+import 'package:get/get.dart';
 
 class order extends StatefulWidget {
   @override
@@ -9,7 +12,7 @@ class order extends StatefulWidget {
 }
 
 class _orderState extends State<order> {
-  TextEditingController controller = TextEditingController();
+  TextEditingController controller1 = TextEditingController();
 
   TextEditingController controller2 = TextEditingController();
 
@@ -55,8 +58,12 @@ class _orderState extends State<order> {
 
   // 알림 발생 함수!!
 
+  late orderModel _orderModel;
+
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(orderModel());
+
     return Scaffold(
         appBar: AppBar(
           title: Text('주문하기'),
@@ -99,7 +106,7 @@ class _orderState extends State<order> {
                                   height: 0,
                                 ),
                                 TextField(
-                                  controller: controller,
+                                  controller: controller1,
                                   decoration:
                                       InputDecoration(labelText: 'ex) 아이스크림'),
                                   keyboardType: TextInputType.emailAddress,
@@ -132,6 +139,20 @@ class _orderState extends State<order> {
                                 SizedBox(
                                   height: 50,
                                 ),
+                                SizedBox(
+                                  width: 400,
+                                  height: 20,
+                                  child: Text('요청사항'),
+                                ),
+                                TextField(
+                                  controller: controller4,
+                                  decoration: InputDecoration(
+                                      labelText: 'ex) 에벤에셀 1층 헤브론홀 냉장고'),
+                                  keyboardType: TextInputType.emailAddress,
+                                ),
+                                SizedBox(
+                                  height: 50,
+                                ),
                                 RaisedButton(
                                   color: Color(0xff326295),
                                   onPressed: _showGroupedNotifications,
@@ -143,6 +164,19 @@ class _orderState extends State<order> {
                                 SizedBox(
                                   //
                                   height: 40,
+                                ),
+                                RaisedButton(
+                                  onPressed: () {
+                                    controller.doneOrder(
+                                        controller1.text,
+                                        controller2.text,
+                                        controller3.text,
+                                        controller4.text,
+                                        controller5.text);
+                                    showSnackBar2(context);
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text('확인'),
                                 ),
                                 RaisedButton(
                                   color: Color(0xff326295),
@@ -227,6 +261,27 @@ class _orderState extends State<order> {
     };
     final json = user.toJson();
     await docUser.set(json);*/
+  }
+}
+
+class flowProvider extends StatelessWidget {
+  const flowProvider({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          RaisedButton(
+            onPressed: () {
+              showSnackBar2(context);
+              Navigator.pop(context);
+            },
+            child: Text('확인'),
+          )
+        ],
+      ),
+    );
   }
 }
 
