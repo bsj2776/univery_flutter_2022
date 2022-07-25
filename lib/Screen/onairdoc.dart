@@ -12,6 +12,7 @@ class onairdoc extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(orderModel());
+    Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       backgroundColor: Color(0xff326295),
@@ -23,7 +24,7 @@ class onairdoc extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(
-                  height: 100,
+                  height: size.height / 7,
                 ),
                 Container(
                   child: Text(
@@ -67,38 +68,42 @@ class onairdoc extends StatelessWidget {
           GetBuilder<orderModel>(builder: (controller) {
             return Padding(
               padding: EdgeInsets.all(8.0),
-              child: Center(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 134,
-                    ),
-                    Container(
-                      child: Text('${Get.find<orderModel>().name}',
-                          style: TextStyle(color: Colors.white, fontSize: 20)),
-                    ),
-                    Container(
-                      child: Text('${controller.place1}',
-                          style: TextStyle(color: Colors.white, fontSize: 20)),
-                    ),
-                    Container(
-                      child: Text('${controller.place2}',
-                          style: TextStyle(color: Colors.white, fontSize: 20)),
-                    ),
-                    Container(
-                      child: Text('${controller.temName}',
-                          style: TextStyle(color: Colors.white, fontSize: 20)),
-                    ),
-                    Container(
-                      child: Text('${controller.hope}',
-                          style: TextStyle(color: Colors.white, fontSize: 20)),
-                    ),
-                    Container(
-                      child: Text('${controller.price}',
-                          style: TextStyle(color: Colors.white, fontSize: 20)),
-                    ),
-                  ],
-                ),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: size.height / 7,
+                  ),
+                  Container(
+                    width: size.width - 120,
+                    child: Text('${Get.find<orderModel>().name}',
+                        style: TextStyle(color: Colors.white, fontSize: 20)),
+                  ),
+                  Container(
+                    width: size.width - 120,
+                    child: Text('${controller.place1}',
+                        style: TextStyle(color: Colors.white, fontSize: 20)),
+                  ),
+                  Container(
+                    width: size.width - 120,
+                    child: Text('${controller.place2}',
+                        style: TextStyle(color: Colors.white, fontSize: 20)),
+                  ),
+                  Container(
+                    width: size.width - 120,
+                    child: Text('${controller.temName}',
+                        style: TextStyle(color: Colors.white, fontSize: 20)),
+                  ),
+                  Container(
+                    width: size.width - 120,
+                    child: Text('${controller.hope}',
+                        style: TextStyle(color: Colors.white, fontSize: 20)),
+                  ),
+                  Container(
+                    width: size.width - 120,
+                    child: Text('${controller.price}원',
+                        style: TextStyle(color: Colors.white, fontSize: 20)),
+                  ),
+                ],
               ),
             );
           })
