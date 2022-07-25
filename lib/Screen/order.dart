@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:univery_flutter_2022/Screen/paymant.dart' as pay;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -24,6 +25,7 @@ class _orderState extends State<order> {
 
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
+  final fb = FirebaseDatabase.instance;
 
   @override
   void initState() {
@@ -63,7 +65,7 @@ class _orderState extends State<order> {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(orderModel());
-
+    final ref = fb.ref().child('todos');
     return Scaffold(
         appBar: AppBar(
           title: Text('주문하기'),
@@ -168,12 +170,19 @@ class _orderState extends State<order> {
                                 RaisedButton(
                                   onPressed: () {
                                     controller.doneOrder(
+                                        controller1.text,
                                         controller2.text,
                                         controller3.text,
-                                        controller4.text,
-                                        controller5.text);
+                                        controller4.text);
                                     showSnackBar2(context);
                                     Navigator.pop(context);
+                                    ref.set({
+                                        "물건 이름" : controller1.text,
+                                        "받을 장소" : controller2.text,
+                                        "물건이 있는 장소" : controller3.text,
+                                        "요청사항" : controller4,
+                                    }).asStream();
+
                                   },
                                   child: Text('확인'),
                                 ),
