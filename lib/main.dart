@@ -127,7 +127,6 @@ class _MyHomePageState extends State<MyhomePage> {
     var check = email.toString().split("@");
     Size size = MediaQuery.of(context).size;
     double height_Button = 150;
-    final user = _auth.currentUser;
 
     return DefaultTabController(
       length: 3,
