@@ -4,6 +4,7 @@ import 'package:univery_flutter_2022/Screen/paymant.dart' as pay;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:univery_flutter_2022/order/model/orderModel.dart';
+import 'package:get/get.dart';
 
 class order extends StatefulWidget {
   @override
@@ -11,7 +12,7 @@ class order extends StatefulWidget {
 }
 
 class _orderState extends State<order> {
-  TextEditingController controller = TextEditingController();
+  TextEditingController controller1 = TextEditingController();
 
   TextEditingController controller2 = TextEditingController();
 
@@ -61,7 +62,7 @@ class _orderState extends State<order> {
 
   @override
   Widget build(BuildContext context) {
-    _orderModel = Provider.of<orderModel>(context, listen: false);
+    final controller = Get.put(orderModel());
 
     return Scaffold(
         appBar: AppBar(
@@ -105,7 +106,7 @@ class _orderState extends State<order> {
                                   height: 0,
                                 ),
                                 TextField(
-                                  controller: controller,
+                                  controller: controller1,
                                   decoration:
                                       InputDecoration(labelText: 'ex) 아이스크림'),
                                   keyboardType: TextInputType.emailAddress,
@@ -166,11 +167,12 @@ class _orderState extends State<order> {
                                 ),
                                 RaisedButton(
                                   onPressed: () {
-                                    _orderModel.doneOrder(
-                                        controller.toString(),
-                                        controller2.toString(),
-                                        controller3.toString(),
-                                        controller4.toString());
+                                    controller.doneOrder(
+                                        controller1.text,
+                                        controller2.text,
+                                        controller3.text,
+                                        controller4.text,
+                                        controller5.text);
                                     showSnackBar2(context);
                                     Navigator.pop(context);
                                   },
