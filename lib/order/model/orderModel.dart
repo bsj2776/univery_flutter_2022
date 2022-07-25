@@ -10,7 +10,7 @@ class orderModel extends GetxController {
   String place2 = '';
   String hope = '';
   String temName = '';
-  int price = 0;
+  int? price = null;
 
   void doneOrder(String place1, String place2, String temName, String hope) {
     this.name = _auth.currentUser!.displayName.toString();
