@@ -8,8 +8,10 @@ import 'package:univery_flutter_2022/order/model/orderModel.dart';
 import 'package:get/get.dart';
 
 class order extends StatefulWidget {
+  const order({Key? key}) : super(key: key);
+
   @override
-  State<order> createState() => _orderState();
+  _orderState createState() => _orderState();
 }
 
 class _orderState extends State<order> {
@@ -65,7 +67,7 @@ class _orderState extends State<order> {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(orderModel());
-    final ref = fb.ref().child('todos');
+    final ref = fb.ref().child('주문 들어온 것');
     return Scaffold(
         appBar: AppBar(
           title: Text('주문하기'),
@@ -175,13 +177,15 @@ class _orderState extends State<order> {
                                         controller3.text,
                                         controller4.text);
                                     showSnackBar2(context);
-                                    Navigator.pop(context);
                                     ref.set({
-                                        "물건 이름" : controller1.text,
-                                        "받을 장소" : controller2.text,
-                                        "물건이 있는 장소" : controller3.text,
-                                        "요청사항" : controller4,
+                                      "물건 이름" : controller1.text,
+                                      "받을 장소" : controller2.text,
+                                      "물건이 있는 장소" : controller3.text,
+                                      "요청사항" : controller4.text,
                                     }).asStream();
+
+                                    Navigator.pushReplacement(
+                                      context,MaterialPageRoute(builder: (_)=> order()));
 
                                   },
                                   child: Text('확인'),
