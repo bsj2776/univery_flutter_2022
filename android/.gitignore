@@ -1,4 +1,6 @@
 gradle-wrapper.jar
+key.jks
+/keystore
 /.gradle
 /captures/
 /gradlew
