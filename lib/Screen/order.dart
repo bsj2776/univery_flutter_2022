@@ -177,12 +177,22 @@ class _orderState extends State<order> {
                                     showSnackBar2(context);
                                     Navigator.pop(context);
                                     ref.set({
+<<<<<<< Updated upstream
                                         "물건 이름" : controller1.text,
                                         "받을 장소" : controller2.text,
                                         "물건이 있는 장소" : controller3.text,
                                         "요청사항" : controller4,
                                     }).asStream();
 
+=======
+                                      "물건 이름": controller1.text,
+                                      "받을 장소": controller2.text,
+                                      "물건이 있는 장소": controller3.text,
+                                      "요청사항": controller4.text,
+                                    }).asStream();
+
+                                    Navigator.pop(context);
+>>>>>>> Stashed changes
                                   },
                                   child: Text('확인'),
                                 ),
