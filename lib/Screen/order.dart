@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:univery_flutter_2022/Screen/paymant.dart' as pay;
@@ -29,6 +30,7 @@ class _orderState extends State<order> {
       FlutterLocalNotificationsPlugin();
   final fb = FirebaseDatabase.instance;
 
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   @override
   void initState() {
     super.initState();
@@ -63,11 +65,10 @@ class _orderState extends State<order> {
   // 알림 발생 함수!!
 
   late orderModel _orderModel;
-
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(orderModel());
-    final ref = fb.ref().child('주문 들어온 것');
+    final ref = fb.ref().child(_auth.currentUser!.uid);
     return Scaffold(
         appBar: AppBar(
           title: Text('주문하기'),
